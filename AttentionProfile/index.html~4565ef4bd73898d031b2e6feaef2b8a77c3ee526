@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+body { font: 12px Arial;
+
+
+background: #f46b45; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #f46b45 , #eea849); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #f46b45 , #eea849); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+        
+}
+
+h1 { color: #F90B6D; font-family: 'Open Sans', sans-serif; font-size: 34px; font-weight: 300; line-height: 40px; margin: 0 0 16px; }
+        
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+div.tooltip { 
+    position: absolute;     
+    text-align: center;     
+    width: 140px;          
+    height: 38px;         
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+}
+
+</style>
+<body>
+
+<select id="opts">
+<script language="javascript" type="text/javascript"> 
+
+for(var d=1;d<=79;d++)
+{
+    document.write("<option value='data/totalViews/"+d+".csv'>"+"Video"+d+"</option>");
+}
+</script>
+</select> 
+
+<!-- load the d3.js library -->    
+<script src="http://d3js.org/d3.v3.min.js " charset="utf-8"></script>
+
+<script>
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 1200 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+// Set the ranges
+// var x = d3.time.scale().range([0, width]);
+var x = d3.scale.linear().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(15);
+
+var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.second); })
+    .y(function(d) { return y(d.numViews); });
+
+// Define the div for the tooltip
+var div = d3.select("body").append("div") 
+    .attr("class", "tooltip")       
+    .style("opacity", 0);
+
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("data/totalViews/1.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.second = d.second;
+        d.numViews = +d.numViews;
+    });
+
+    // Scale the range of the data
+    x.domain([0,d3.max(data, function(d) { return d.second; })]);
+    y.domain([0, d3.max(data, function(d) { return d.numViews; })]);
+
+    // Add the valueline path.
+    svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data));
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("Number of views Versus Video second");
+    
+    //     // Add the scatterplot
+    // svg.selectAll("dot")  
+    //     .data(data)     
+    // .enter().append("circle")               
+    //     .attr("r", 2)   
+    //     .attr("cx", function(d) { return x(d.second); })     
+    //     .attr("cy", function(d) { return y(d.numViews); })   
+    //     .on("mouseover", function(d) {    
+    //         div.transition()    
+    //             .duration(200)    
+    //             .style("opacity", .9);    
+    //         div .html("<strong>Video second: </strong>"+d.second + 
+    //           "<br/>"+"<strong>Views: </strong>"  + d.numViews)  
+    //             .style("left", (d3.event.pageX) + "px")   
+    //             .style("top", (d3.event.pageY - 28) + "px");  
+    //         })          
+    //     .on("mouseout", function(d) {   
+    //         div.transition()    
+    //             .duration(500)    
+    //             .style("opacity", 0); 
+    //     });
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+       // Add the text label for the x axis
+    svg.append("text")
+        .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
+        .style("text-anchor", "middle")
+        .text("Video second");
+
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+ // Add the text label for the Y axis
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("No. of views");
+
+});
+
+// ** Update data section (Called from the onclick)
+function updateData(filename) {
+  
+    // Get the data again
+    d3.csv(filename, function(error, data) {
+        data.forEach(function(d) {
+        d.second = d.second;
+        d.numViews= +d.numViews;
+      });
+
+    // Scale the range of the data
+    x.domain([0,d3.max(data, function(d) { return d.second; })]);
+    y.domain([0, d3.max(data, function(d) { return d.numViews; })]);
+
+    // Select the section we want to apply our changes to
+    var svg = d3.select("body").transition();
+
+    // Make the changes
+        svg.select(".line")   // change the line
+            .duration(750)
+            .attr("d", valueline(data));
+        svg.select(".x.axis") // change the x axis
+            .duration(750)
+            .call(xAxis);
+        svg.select(".y.axis") // change the y axis
+            .duration(750)
+            .call(yAxis);
+
+
+
+
+    });
+}
+
+
+// handle on click event
+d3.select('#opts').on('change', function() {
+  updateData(this.value);
+});
+</script>
+</body>

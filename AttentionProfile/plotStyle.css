@@ -25,6 +25,21 @@ path {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
 
 div.tooltip {
     position: absolute;

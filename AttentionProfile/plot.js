@@ -233,8 +233,8 @@ var Views = function(filePath) {
     }
 
     function fillOptsforVideos() {
-        for (var d = 1; d <= 79; d++) {
-            document.write("<option value='data/totalViews/" + d + ".csv'>" + "Video" + d + "</option>");
+        for (var i = 0; i < videos.length; i++) {
+            document.write("<option value='data/totalViews/" + videos[i] + ".csv'>" + "Video" + videos[i] + "</option>");
         }
     }
 
@@ -266,7 +266,7 @@ var Views = function(filePath) {
 
     function displayTotal() {
         // handle on click event
-        d3.select('#opts').on('change', function() {
+        d3.select('#opts2').on('change', function() {
             updateData(this.value);
         });
     }

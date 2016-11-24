@@ -1,0 +1,26 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2014-10-01 17:08:28.000000,load_video,None,,,,None,
+2014-10-01 17:08:38.000000,play_video,0,,,,0,
+2014-10-01 17:08:42.000000,speed_change_video,None,1.0,2.0,,None,
+2014-10-01 17:08:48.000000,speed_change_video,None,2.0,1.0,,None,
+2014-10-01 17:13:17.000000,seek_video,,,,546.490783691,,onSlideSeek
+2014-10-01 17:13:18.000000,seek_video,,,,546.490783691,,onSlideSeek
+2014-10-01 17:14:15.000000,pause_video,546.490783691,,,,546.490783691,
+2014-10-01 17:14:15.000000,stop_video,546.490783691,,,,546.490783691,
+2014-10-04 08:05:22.000000,load_video,None,,,,None,
+2014-10-04 08:05:31.000000,speed_change_video,None,1.0,2.0,,None,
+2014-10-04 08:05:34.000000,play_video,546,,,,546,
+2014-10-04 08:05:43.000000,seek_video,,,,554.206237793,,onSlideSeek
+2014-10-04 08:05:44.000000,seek_video,,,,554.206237793,,onSlideSeek
+2014-10-04 08:05:46.000000,play_video,554.206237793,,,,554.206237793,
+2014-10-04 08:05:47.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:05:49.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:05:50.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:05:52.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:05:54.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:06:16.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:06:24.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:06:28.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:06:29.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:06:30.000000,seek_video,,,,536.814819336,,onSlideSeek
+2014-10-04 08:08:22.000000,pause_video,536.814819336,,,,536.814819336,

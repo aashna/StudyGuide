@@ -1,0 +1,20 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2015-10-20 21:35:16.000000,load_video,None,,,,None,
+2015-10-20 21:36:58.000000,load_video,None,,,,None,
+2015-10-26 18:46:13.000000,load_video,None,,,,None,
+2015-10-26 18:47:09.000000,load_video,None,,,,None,
+2015-10-26 18:51:45.000000,load_video,None,,,,None,
+2015-10-26 18:52:47.000000,load_video,None,,,,None,
+2015-10-26 18:58:20.000000,load_video,None,,,,None,
+2015-10-26 18:58:22.000000,play_video,0,,,,0,
+2015-10-26 18:58:33.000000,pause_video,10.68,,,,10.68,
+2015-10-26 18:59:56.000000,play_video,10.68,,,,10.68,
+2015-10-26 19:00:03.000000,seek_video,,,,17.861,,onSlideSeek
+2015-10-26 19:00:04.000000,play_video,18.1,,,,18.1,
+2015-10-26 19:09:30.000000,pause_video,574.66,,,,574.66,
+2015-10-26 19:12:22.000000,play_video,574.66,,,,574.66,
+2015-10-26 19:15:25.000000,seek_video,,,,756.76,,onSlideSeek
+2015-10-26 19:15:25.000000,play_video,756.76,,,,756.76,
+2015-10-26 19:15:32.000000,seek_video,,,,753.861,,onSlideSeek
+2015-10-26 19:15:32.000000,play_video,754.12,,,,754.12,
+2015-10-26 19:16:55.000000,stop_video,822.08,,,,822.08,

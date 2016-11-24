@@ -1,0 +1,9 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2015-04-06 07:12:27.000000,load_video,None,,,,None,
+2015-04-06 07:12:34.000000,play_video,0,,,,0,
+2015-04-06 07:12:45.000000,seek_video,,,,15.973688,,onSlideSeek
+2015-04-06 07:12:45.000000,play_video,15.973688,,,,15.973688,
+2015-04-06 07:12:47.000000,seek_video,,,,515.773497,,onSlideSeek
+2015-04-06 07:12:47.000000,play_video,516.121787,,,,516.121787,
+2015-04-06 07:26:51.000000,load_video,None,,,,None,
+2015-04-06 07:43:46.000000,load_video,None,,,,None,

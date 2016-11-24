@@ -1,0 +1,9 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2014-11-28 21:33:16.000000,load_video,None,,,,None,
+2014-11-28 21:33:22.000000,play_video,0,,,,0,
+2014-11-28 21:34:05.000000,pause_video,65.121897,,,,65.121897,
+2014-11-28 21:35:18.000000,play_video,65.121897,,,,65.121897,
+2014-11-28 21:38:48.000000,pause_video,379.105335,,,,379.105335,
+2014-11-28 21:38:48.000000,stop_video,379.105335,,,,379.105335,
+2014-11-28 21:38:51.000000,seek_video,,,,379.105335,,onSlideSeek
+2014-11-28 21:38:51.000000,play_video,364,,,,364,

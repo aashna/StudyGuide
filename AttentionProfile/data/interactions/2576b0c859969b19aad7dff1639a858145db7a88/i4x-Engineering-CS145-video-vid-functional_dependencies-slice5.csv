@@ -1,0 +1,7 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2014-10-13 07:32:24.000000,load_video,None,,,,None,
+2014-10-13 07:32:27.000000,play_video,0,,,,0,
+2014-10-13 07:33:34.000000,pause_video,99.8625,,,,99.8625,
+2014-10-13 07:33:34.000000,stop_video,99.8625,,,,99.8625,
+2014-10-22 12:14:35.000000,load_video,None,,,,None,
+2014-10-23 00:03:04.000000,load_video,None,,,,None,

@@ -1,0 +1,26 @@
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+2014-09-24 16:41:20.000000,load_video,None,,,,None,
+2014-09-24 16:41:22.000000,play_video,0,,,,0,
+2014-09-24 16:41:26.000000,seek_video,,,,3.965619,,onCaptionSeek
+2014-09-24 16:41:26.000000,play_video,3.965619,,,,3.965619,
+2014-09-24 16:41:27.000000,seek_video,,,,4.613812,,onCaptionSeek
+2014-09-24 16:41:27.000000,play_video,4.613812,,,,4.613812,
+2014-09-24 16:41:33.000000,pause_video,13.182553,,,,13.182553,
+2014-09-24 16:41:36.000000,seek_video,,,,13.182553,,onCaptionSeek
+2014-09-24 16:41:37.000000,seek_video,,,,14.07,,onCaptionSeek
+2014-09-24 16:41:44.000000,seek_video,,,,16.7,,onCaptionSeek
+2014-09-24 16:41:46.000000,seek_video,,,,23.44,,onCaptionSeek
+2014-09-24 16:41:48.000000,seek_video,,,,29.64,,onCaptionSeek
+2014-09-24 16:56:00.000000,seek_video,,,,33.13,,onCaptionSeek
+2014-09-24 16:56:09.000000,seek_video,,,,77.69,,onCaptionSeek
+2014-09-24 16:56:18.000000,seek_video,,,,88.33,,onCaptionSeek
+2014-09-24 17:01:20.000000,seek_video,,,,114.85,,onCaptionSeek
+2014-09-24 17:01:32.000000,seek_video,,,,178.9,,onCaptionSeek
+2014-09-24 17:01:35.000000,seek_video,,,,186.51,,onCaptionSeek
+2014-09-24 17:01:48.000000,seek_video,,,,189.31,,onCaptionSeek
+2014-09-24 17:01:54.000000,seek_video,,,,212.07,,onCaptionSeek
+2014-09-24 17:02:16.000000,seek_video,,,,223.2,,onCaptionSeek
+2014-09-24 17:02:31.000000,seek_video,,,,252.07,,onCaptionSeek
+2014-09-24 17:02:35.000000,seek_video,,,,310.86,,onCaptionSeek
+2014-09-24 17:08:44.000000,seek_video,,,,315.59,,onCaptionSeek
+2014-09-24 17:08:51.000000,seek_video,,,,322.74,,onCaptionSeek

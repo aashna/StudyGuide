@@ -1,4 +1,4 @@
-wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_old_time,video_current_time,video_seek_type
 2014-11-21 04:22:45.000000,load_video,None,,,,None,
 2015-07-17 17:49:03.000000,load_video,None,,,,None,
 2015-07-17 17:49:31.000000,play_video,0,,,,0,

@@ -49,10 +49,11 @@ def get_pause_times(filepath):
     t1,t2=-1,-1
     video_new_speed = 1
     for row in dictofdata:
+        if row['video_current_time'] and row['video_current_time']!='None':data[int(float(row['video_current_time']))]=0
         if row['event_type'] == 'pause_video': t1=row['wall_time'] 
         elif row['event_type'] == 'play_video' and t1>-1:
             t2 = row['wall_time']
-            data[row['video_current_time']] = float(get_timestamp_difference(t1,t2))*float(video_new_speed)
+            data[int(float(row['video_current_time']))] = float(get_timestamp_difference(t1,t2))*float(video_new_speed)
             t1,t2 = -1,-1
         elif row['event_type'] == 'stop_video' or row['event_type'] == 'load_video' or row['event_type'] == 'seek_video': t1=-1
         elif row['event_type'] == 'speed_change_video': video_new_speed = row['video_new_speed']
@@ -63,8 +64,7 @@ def get_pause_times(filepath):
     f_out = open(DATA_DIRECTORY+filepath.split('/')[3]+'/'+filepath.split('/')[4]+ '/pause_'+filename,'wb')
     writer = csv.writer(f_out)
     writer.writerow(['video_current_time','pause_time'])
-    for key in data:
-        if data[key]>0: writer.writerow([key,data[key]])
+    for key in data: writer.writerow([key,data[key]])
 
 
 for subdir, dirs, files in os.walk(DATA_DIRECTORY+'/interactions'):

@@ -1,4 +1,4 @@
-wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_current_time,video_seek_type
+wall_time,event_type,video_current_time,video_new_speed,video_old_speed,video_old_time,video_current_time,video_seek_type
 2015-04-04 03:50:13.000000,load_video,None,,,,None,
 2015-04-04 03:50:15.000000,play_video,0,,,,0,
 2015-04-04 03:50:25.000000,seek_video,,,,18.956,,onSlideSeek

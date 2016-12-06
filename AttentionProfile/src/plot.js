@@ -43,8 +43,9 @@ var Views = function(filePath1, filePath2) {
 
     var tip = d3.tip()
         .attr('class', 'd3-tip')
-        .offset([200, 0])
+        .offset([20, 0])
         .html(function(d) {
+            console.log("PAuse time:  " + d.pause_time);
             return "<strong>Pause time:</strong> <span style='color:red'>" + d.pause_time + "</span>" + "<br>" + "<strong>Second:</strong> <span style='color:red'>" + d.video_current_time + "</span>";
         })
 
@@ -105,21 +106,17 @@ var Views = function(filePath1, filePath2) {
             })]);
 
             // Scale the range of the data
-            x.domain(d3.extent(data, function(d) {
-                return d.second;
-            }));
-
-
+            x.domain([0, Math.max(
+                d3.max(data, function(d) {
+                    return d.second
+                }),
+                d3.max(data2, function(d) {
+                    return d.video_current_time
+                }))]);
             // Add the valueline path.
             svg.append("path")
                 .attr("class", "line")
                 .attr("d", valueline(data));
-
-            // Add the valueline path for second data
-            // svg.append("path")
-            //     .attr("class", "line")
-            //     .style("stroke", "red")
-            //     .attr("d", valueline2(data2));
 
             svg.append("text")
                 .attr("x", (width / 2))
@@ -145,69 +142,46 @@ var Views = function(filePath1, filePath2) {
             svg.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate(" + width + " ,0)")
-                .call(yAxis);
-
-            // Add the text label for the Y axis
-            svg.append("text")
+                .call(yAxis)
+                .append("text")
                 .attr("x", 40)
                 .attr("y", -25)
                 .attr("dy", ".71em")
-
-            //.attr("transform", "rotate(-90)")
-            // .attr("y", 0 - margin.left)
-            // .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-                .style("text-anchor", "middle")
+                .style("text-anchor", "")
                 .style("fill", "steelblue")
                 .text("Pause Time");
 
-            // Add the Y Axis
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxisRight);
-
-            // Add the text label for the Y axis
-            svg.append("text")
-                .attr("transform", "translate(" + (width + 3) + "," + y(data[0].numViews) + ")")
-                //.attr("transform", "rotate(-90)")
-                // .attr("y", 0 - margin.left)
-                // .attr("x", 0 - (height / 2))
-                .attr("dy", "1em")
-                .style("text-anchor", "end")
-                .style("fill", "steelblue")
-                .text("Number of Views");
-
-            // Add the text label for the Y axis
-            // svg.append("text")
-            //     .attr("transform", "translate(" + (width + 3) + "," + y(data2[0].pause_time) + ")")
-            //     //.attr("transform", "rotate(-90)")
-            //     // .attr("y", 0 - margin.left)
-            //     // .attr("x", 0 - (height / 2))
-            //     .attr("dy", "1em")
-            //     .style("text-anchor", "middle")
-            //     .style("fill", "red")
-            //     .text("Pause time");
-
-            svg.selectAll(".bar")
-                .data(data2)
-                .enter().append("rect")
+            svg.selectAll(".bar").data(data2).enter().append("rect")
                 .attr("class", "bar")
                 .attr("x", function(d) {
                     return x(d.video_current_time);
                 })
                 .attr("width", 20)
                 .attr("y", function(d) {
-                    return y(d.pause_time);
+                    return y2(d.pause_time);
                 })
                 .attr("height", function(d) {
-                    return height - y(d.pause_time);
+                    return height - y2(d.pause_time);
                 })
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
+
+            // Add the Y Axis
+            svg.append("g")
+                .attr("class", "y axis2")
+                .call(yAxisRight);
+
+            // Add the text label for the Y axis
+            svg.append("text")
+                .attr("transform", "translate(" + (width + 3) + "," + y(data[0].numViews) + ")")
+                .attr("dy", "1em")
+                .style("text-anchor", "end")
+                .style("fill", "steelblue")
+                .text("Number of Views");
         });
 
         var focus = svg.append("g")
-           // .attr("class", "focus")
+            // .attr("class", "focus")
             .style("display", "none");
 
         // append the x line
@@ -256,12 +230,6 @@ var Views = function(filePath1, filePath2) {
             .attr("class", "y4")
             .attr("dx", 8)
             .attr("dy", "1em");
-
-        // focus.append("circle")
-        //     .attr("r", 4.5);
-
-        // focus.append("text")
-        //     .attr("x", 9)
         //     .attr("dy", ".35em");
 
         svg.append("rect")
@@ -279,11 +247,10 @@ var Views = function(filePath1, filePath2) {
                 d1 = data[i],
                 d = x0 - d0.second > d1.second - x0 ? d1 : d0;
 
-            // console.log("d0"+d0.second);
-            // console.log("d1"+d1.second);
-
-            //focus.attr("transform", "translate(" + x(d.second) + "," + y(d.numViews) + ")");
-            //focus.select("text").text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+            focus.select("circle.y")
+                .attr("transform",
+                    "translate(" + x(d.second) + "," +
+                    y(d.numViews) + ")");
 
             focus.select("text.y1")
                 .attr("transform",
@@ -312,10 +279,10 @@ var Views = function(filePath1, filePath2) {
                 .attr("y2", height - y(d.numViews));
 
             focus.select(".y")
-            .attr("transform",
-                  "translate(" + width * -1 + "," +
-                                 y(d.numViews) + ")")
-                       .attr("x2", width + width);
+                .attr("transform",
+                    "translate(" + width * -1 + "," +
+                    y(d.numViews) + ")")
+                .attr("x2", width + width);
         }
 
         svg.on("click", function() {
@@ -342,7 +309,6 @@ var Views = function(filePath1, filePath2) {
 
             d3.csv(filename2, function(error2, data2) {
 
-
                 data2.forEach(function(d) {
                     d.video_current_time = +d.video_current_time;
                     d.pause_time = +d.pause_time;
@@ -350,31 +316,25 @@ var Views = function(filePath1, filePath2) {
                     console.log(d.pause_time);
                 });
                 data.forEach(function(d) {
-                    d.second = d.second;
+                    d.second = +d.second;
                     d.numViews = +d.numViews;
                 });
 
-                // var linearScale = d3.scale.linear();
-                // newScaledData1 = []
-                // for (var i = 0; i < data.length; i++) {
-                //    newScaledData1[i] = linearScale(data[i].numViews);
-                // }
-                // newScaledData2 = []
-                // for (var i = 0; i < data2.length; i++) {
-                //    newScaledData2[i] = linearScale(data2[i].pause_time);
-                // }
-
-
-                // Scale the range of the data
-                x.domain(d3.extent(data, function(d) {
-                    return d.second;
-                }));
                 y.domain([0, d3.max(data, function(d) {
                     return d.numViews;
                 })]);
                 y2.domain([0, d3.max(data2, function(d) {
                     return d.pause_time;
                 })]);
+
+                // Scale the range of the data
+                x.domain([0, Math.max(
+                    d3.max(data, function(d) {
+                        return d.second
+                    }),
+                    d3.max(data2, function(d) {
+                        return d.video_current_time
+                    }))]);
 
                 // Select the section we want to apply our changes to
                 var svg = d3.select("body");
@@ -389,24 +349,48 @@ var Views = function(filePath1, filePath2) {
                 svg.transition().select(".y.axis") // change the y axis
                     .duration(750)
                     .call(yAxis);
-                svg.transition().select(".y.axis") // change the y axis
+                svg.transition().select(".y.axis2") // change the y axis
                     .duration(750)
                     .call(yAxisRight);
 
-                svg.selectAll(".bar")
-                    .data(data2)
+                var sel = svg.selectAll("rect").data(data2);
+
+                sel.exit()
+                    .transition()
+                    .duration(500)
                     .attr("x", function(d) {
                         return x(d.video_current_time);
                     })
-                    .attr("width", 20)
                     .attr("y", function(d) {
-                        return y(d.pause_time);
+                        return y2(d.pause_time);
                     })
                     .attr("height", function(d) {
-                        return height - y(d.pause_time);
+                        return height - y2(d.pause_time);
                     })
-                    .on('mouseover', tip.show)
-                    .on('mouseout', tip.hide)
+                .remove();
+
+                sel.transition().duration(600)
+                    .attr("x", function(d) {
+                        return x(d.video_current_time);
+                    })
+                    .attr("y", function(d) {
+                        return y2(d.pause_time);
+                    })
+                    .attr("height", function(d) {
+                        return height - y2(d.pause_time);
+                    });
+                // .attr("width", 20)
+                // updated data:
+                bar.attr("x", function(d) {
+                        return x(d.video_current_time);
+                    })
+                    .attr("y", function(d) {
+                        return y2(d.pause_time);
+                    })
+                    .attr("height", function(d) {
+                        return height - y2(d.pause_time);
+                    });
+
                 var focus = svg.select(".focus")
                 svg.selectAll("rect")
                     .attr("class", "overlay")

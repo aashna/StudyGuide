@@ -11,8 +11,8 @@ var Views = function(filePath1, filePath2) {
     }
     // Set the dimensions of the canvas / graph
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-        width = 3200 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom,
+        width = 1200 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom,
         bisectDate = d3.bisector(function(d) {
             return d.second;
         }).left;
@@ -117,14 +117,6 @@ var Views = function(filePath1, filePath2) {
             svg.append("path")
                 .attr("class", "line")
                 .attr("d", valueline(data));
-
-            svg.append("text")
-                .attr("x", (width / 2))
-                .attr("y", 0 - (margin.top / 2))
-                .attr("text-anchor", "middle")
-                .style("font-size", "16px")
-                .style("text-decoration", "underline")
-                .text("Number of views Versus Video second");
 
             // Add the X Axis
             svg.append("g")
@@ -367,7 +359,7 @@ var Views = function(filePath1, filePath2) {
                     .attr("height", function(d) {
                         return height - y2(d.pause_time);
                     })
-                .remove();
+                    .remove();
 
                 sel.transition().duration(600)
                     .attr("x", function(d) {
@@ -391,24 +383,60 @@ var Views = function(filePath1, filePath2) {
                         return height - y2(d.pause_time);
                     });
 
-                var focus = svg.select(".focus")
+                var focus = svg.select(".focus").data(data2);
+
                 svg.selectAll("rect")
-                    .attr("class", "overlay")
-                    .attr("width", width)
-                    .attr("height", height)
+                    // .attr("class", "overlay")
+                    // .attr("width", width)
+                    // .attr("height", height)
                     .on("mouseover", function() { focus.style("display", null); })
                     .on("mouseout", function() { focus.style("display", "none"); })
                     .on("mousemove", mousemove);
 
                 // Create Event Handlers for mouse
                 function mousemove() {
-                    var x0 = d3.mouse(this)[0],
+                    var x0 = x.invert(d3.mouse(this)[0]),
                         i = bisectDate(data, x0, 1),
                         d0 = data[i - 1],
                         d1 = data[i],
                         d = x0 - d0.second > d1.second - x0 ? d1 : d0;
-                    focus.attr("transform", "translate(" + x(d.second) + "," + y(d.numViews) + ")");
-                    focus.select("text").text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+
+                    focus.select("circle.y")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")");
+
+                    focus.select("text.y1")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")")
+                        .text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+                    focus.select("text.y2")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")")
+                        .text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+                    focus.select("text.y3")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")")
+                        .text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+                    focus.select("text.y4")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")")
+                        .text(((d.second)) + " second,\n" + ((d.numViews)) + "views");
+                    focus.select(".x")
+                        .attr("transform",
+                            "translate(" + x(d.second) + "," +
+                            y(d.numViews) + ")")
+                        .attr("y2", height - y(d.numViews));
+
+                    focus.select(".y")
+                        .attr("transform",
+                            "translate(" + width * -1 + "," +
+                            y(d.numViews) + ")")
+                        .attr("x2", width + width);
                 }
             });
         });
